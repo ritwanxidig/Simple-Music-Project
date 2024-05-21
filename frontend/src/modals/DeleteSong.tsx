@@ -1,7 +1,6 @@
 import { Song, deleteSongRequest } from '@/app/slices/songSlice';
 import { RootState } from '@/app/store';
 import Modal from '@/components/Modal';
-import React from 'react'
 import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 

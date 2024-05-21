@@ -99,7 +99,7 @@ const Songs = () => {
                 </div>
                 <div>
                     <div className='grid grid-cols-4 gap-4 w-full'>
-                        {songs?.map((song, i) => (<Song key={song?._id} song={song} />))}
+                        {songs?.map((song) => (<Song key={song?._id} song={song} />))}
                     </div>
                 </div>
             </div>

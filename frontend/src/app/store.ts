@@ -1,4 +1,4 @@
-import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import songReducer from './slices/songSlice';
 import statReducer from './slices/statsSlice'
 import createSagaMiddleware from 'redux-saga'
