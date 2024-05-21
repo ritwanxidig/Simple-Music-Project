@@ -64,7 +64,7 @@ This project is a demonstration of my full stack development skills using the ME
     ```
 3. Start the development server:
     ```bash
-    npm start
+    npm run dev
     ```
 
 ## Screenshots
