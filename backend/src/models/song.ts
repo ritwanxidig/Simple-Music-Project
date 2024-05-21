@@ -75,15 +75,37 @@ export const deleteSongById = async (id: string) => {
 export const getStats = async () => {
     try {
         const totalSongs = await Song.countDocuments();
-        const toCountArtists = await Song.distinct('artist');
-        const totalArtists = toCountArtists.length;
-        const toCountAlbums = await Song.distinct('album');
-        const totalAlbums = toCountAlbums.length;
-        const toCountAlbumsGenres = await Song.distinct('genre');
-        const totalGenres = toCountAlbumsGenres.length;
+        const distinctArtists = await Song.distinct('artist');
+        const totalArtists = distinctArtists.length;
+        const distinctAlbums = await Song.distinct('album')
+        const totalAlbums = distinctAlbums.length;
+        const distinctGenres = await Song.distinct('genre')
+        const totalGenres = distinctGenres.length;
 
         const songsByGenre = await Song.aggregate([
             { $group: { _id: '$genre', count: { $sum: 1 } } }
+        ]);
+
+        const songsByArtist = await Song.aggregate([
+            { $group: { _id: '$artist', count: { $sum: 1 } } }
+        ]);
+
+        const albumsByArtist = await Song.aggregate([
+            { $group: { _id: { artist: '$artist', album: '$album' } } },
+            { $group: { _id: '$_id.artist', albums: { $sum: 1 } } }
+        ]);
+
+        const artistStats = songsByArtist.map(artist => {
+            const artistAlbum = albumsByArtist.find(a => a._id === artist._id);
+            return {
+                artist: artist._id,
+                songs: artist.count,
+                albums: artistAlbum ? artistAlbum.albums : 0
+            };
+        });
+
+        const songsByAlbum = await Song.aggregate([
+            { $group: { _id: '$album', count: { $sum: 1 } } }
         ]);
 
         return {
@@ -91,7 +113,9 @@ export const getStats = async () => {
             totalArtists,
             totalAlbums,
             totalGenres,
-            songsByGenre
+            songsByGenre,
+            artistStats,
+            songsByAlbum
         };
 
     } catch (error) {
