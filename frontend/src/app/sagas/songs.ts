@@ -3,7 +3,7 @@ import { fetchSongsRequest, fetchSongsSuccess, fetchSongsFailure, Song, addSongR
 import { PayloadAction } from '@reduxjs/toolkit';
 
 
-const baseURL = 'http://localhost:3030/api/songs';
+const baseURL = `${import.meta.env.VITE_BASE_URL}/songs`;
 
 function* fetchSongs() {
     try {

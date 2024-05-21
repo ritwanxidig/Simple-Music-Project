@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { fetchStatsRequest, fetchStatsSuccess, fetchStatsFailure, StatsData } from '../slices/statsSlice';
 
-const baseURL = 'http://localhost:3030/api';
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 function* fetchStats() {
     try {
