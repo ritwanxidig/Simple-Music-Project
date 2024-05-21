@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3030:3030"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - DB_URL=mongodb+srv://studentritwan:84r8e34MEoRTslby@addissoftwaretestprojec.vooujkz.mongodb.net/?retryWrites=true&w=majority&appName=addisSoftwareTestProject
